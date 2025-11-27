@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoDyn - Sustentabilidade que Vale Tokens</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #ffffff;
+            --secondary: #f2f2f7;
+            --accent1: #34c759;
+            --accent2: #32d74b;
+            --text: #1c1c1e;
+            --text-light: #8e8e93;
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.8);
+            --glass-shadow: rgba(0, 0, 0, 0.05);
+            --success: #30d158;
+            --pending: #ff9f0a;
+            --card-bg: rgba(255, 255, 255, 0.8);
+            --nav-bg: rgba(255, 255, 255, 0.75);
+            --nav-border: rgba(255, 255, 255, 0.9);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, sans-serif;
+        }
+
+        body {
+            background-color: #f2f2f7;
+            color: var(--text);
+            min-height: 100vh;
+            padding: 20px;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(52, 199, 89, 0.03) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(50, 215, 75, 0.03) 0%, transparent 20%);
+            padding-bottom: 100px;
+        }
+
+        .app-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header Styles */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--accent1);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+            box-shadow: 0 4px 15px rgba(52, 199, 89, 0.3);
+        }
+
+        .logo-text h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .logo-text p {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .token-display {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 14px;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 20px var(--glass-shadow);
+        }
+
+        .token-icon {
+            width: 30px;
+            height: 30px;
+            background: var(--accent1);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .token-amount {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .user-profile {
+            width: 50px;
+            height: 50px;
+            border-radius: 14px;
+            background: var(--accent1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(52, 199, 89, 0.3);
+        }
+
+        /* Main Content */
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 25px;
+        }
+
+        .tasks-section h2, .progress-section h2 {
+            font-size: 22px;
+            margin-bottom: 20px;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--accent1);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            color: white;
+        }
+
+        /* Task Cards */
+        .tasks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .task-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 4px 20px var(--glass-shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .task-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .task-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .task-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            background: var(--accent1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: white;
+        }
+
+        .task-tokens {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 14px;
+            padding: 6px 12px;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--accent1);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .task-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .task-description {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .task-proof {
+            font-size: 12px;
+            color: var(--text-light);
+            margin-bottom: 15px;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 12px;
+            border-left: 3px solid var(--accent1);
+        }
+
+        .task-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.2);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .btn:hover::before {
+            opacity: 1;
+        }
+
+        .btn-primary {
+            background: var(--accent1);
+            color: white;
+            flex: 1;
+            box-shadow: 0 4px 15px rgba(52, 199, 89, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent2);
+            box-shadow: 0 6px 20px rgba(52, 199, 89, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--accent1);
+            border: 1px solid var(--accent1);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(52, 199, 89, 0.1);
+        }
+
+        /* Progress Section */
+        .progress-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 4px 20px var(--glass-shadow);
+            margin-bottom: 25px;
+        }
+
+        .progress-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .stat {
+            text-align: center;
+            padding: 18px 15px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 16px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--accent1);
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 10px;
+            margin: 20px 0;
+            overflow: hidden;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--accent1);
+            border-radius: 10px;
+            width: 65%;
+            transition: width 0.5s ease;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .level-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: var(--text-light);
+            margin-bottom: 5px;
+        }
+
+        .completed-tasks {
+            margin-top: 30px;
+        }
+
+        .completed-list {
+            list-style: none;
+        }
+
+        .completed-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .completed-item:last-child {
+            border-bottom: none;
+        }
+
+        .task-name {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .task-date {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        .task-reward {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--accent1);
+        }
+
+        /* LIQUID GLASS NAVIGATION */
+        .bottom-nav {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--nav-bg);
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            border: 1px solid var(--nav-border);
+            border-radius: 25px;
+            padding: 15px;
+            display: flex;
+            gap: 8px;
+            box-shadow: 
+                0 10px 35px rgba(0, 0, 0, 0.1),
+                0 2px 15px rgba(255, 255, 255, 0.5) inset,
+                0 -2px 10px rgba(0, 0, 0, 0.05) inset;
+            z-index: 100;
+            width: auto;
+            min-width: 320px;
+            max-width: 90%;
+        }
+
+        .nav-item {
+            padding: 14px 20px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+            background: transparent;
+            border: none;
+            flex: 1;
+            justify-content: center;
+            min-width: 0;
+        }
+
+        .nav-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.6);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            border-radius: 16px;
+        }
+
+        .nav-item:hover::before {
+            opacity: 1;
+        }
+
+        .nav-item.active {
+            background: rgba(52, 199, 89, 0.15);
+            color: var(--accent1);
+            box-shadow: 
+                0 4px 15px rgba(52, 199, 89, 0.2),
+                0 2px 5px rgba(255, 255, 255, 0.8) inset;
+            backdrop-filter: blur(20px);
+        }
+
+        .nav-item.active::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 5px;
+            height: 5px;
+            background: var(--accent1);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--accent1);
+        }
+
+        .nav-item i {
+            font-size: 18px;
+            transition: transform 0.3s ease;
+            z-index: 1;
+            position: relative;
+        }
+
+        .nav-item.active i {
+            transform: scale(1.1);
+            filter: drop-shadow(0 2px 4px rgba(52, 199, 89, 0.3));
+        }
+
+        .nav-item span {
+            z-index: 1;
+            position: relative;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .nav-item:hover:not(.active) {
+            color: var(--text);
+            transform: translateY(-2px);
+        }
+
+        /* Liquid Glass Effects */
+        .liquid-effect {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(52, 199, 89, 0.08) 0%, transparent 70%);
+            filter: blur(10px);
+            z-index: -1;
+        }
+
+        .effect-1 {
+            top: -50px;
+            right: -50px;
+        }
+
+        .effect-2 {
+            bottom: -50px;
+            left: -50px;
+            background: radial-gradient(circle, rgba(50, 215, 75, 0.08) 0%, transparent 70%);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bubbleRise {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-50px) scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        @keyframes navPulse {
+            0% {
+                box-shadow: 
+                    0 4px 15px rgba(52, 199, 89, 0.2),
+                    0 2px 5px rgba(255, 255, 255, 0.8) inset;
+            }
+            50% {
+                box-shadow: 
+                    0 4px 20px rgba(52, 199, 89, 0.3),
+                    0 2px 8px rgba(255, 255, 255, 0.9) inset;
+            }
+            100% {
+                box-shadow: 
+                    0 4px 15px rgba(52, 199, 89, 0.2),
+                    0 2px 5px rgba(255, 255, 255, 0.8) inset;
+            }
+        }
+
+        .task-card {
+            animation: fadeInUp 0.6s ease;
+        }
+
+        .token-animation {
+            animation: bubbleRise 0.8s ease-out;
+        }
+
+        .nav-item.active {
+            animation: navPulse 2s infinite;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 900px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+            
+            .tasks-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .bottom-nav {
+                width: calc(100% - 40px);
+                min-width: unset;
+            }
+        }
+
+        @media (max-width: 600px) {
+            header {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+            
+            .user-info {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .progress-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .bottom-nav {
+                padding: 12px;
+            }
+            
+            .nav-item {
+                padding: 12px 15px;
+            }
+            
+            .nav-item span {
+                display: none;
+            }
+            
+            .nav-item i {
+                font-size: 20px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .bottom-nav {
+                padding: 10px;
+                gap: 5px;
+            }
+            
+            .nav-item {
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <div class="logo">
+                <div class="logo-icon">🌱</div>
+                <div class="logo-text">
+                    <h1>EcoDyn</h1>
+                    <p>Sustentabilidade que vale tokens</p>
+                </div>
+            </div>
+            <div class="user-info">
+                <div class="token-display">
+                    <div class="token-icon">DYN</div>
+                    <div class="token-amount">350</div>
+                </div>
+                <div class="user-profile">U</div>
+            </div>
+        </header>
+
+        <main class="dashboard">
+            <section class="tasks-section">
+                <h2><span class="section-icon"><i class="fas fa-tasks"></i></span> Missões Diárias</h2>
+                <div class="tasks-grid">
+                    <!-- Task 1 -->
+                    <div class="task-card">
+                        <div class="liquid-effect effect-1"></div>
+                        <div class="liquid-effect effect-2"></div>
+                        <div class="task-header">
+                            <div class="task-icon"><i class="fas fa-shopping-bag"></i></div>
+                            <div class="task-tokens">+50 <span>DYN</span></div>
+                        </div>
+                        <h3 class="task-title">Ecobag no Supermercado</h3>
+                        <p class="task-description">Use uma ecobag ou sacola retornável nas compras para reduzir o uso de plástico.</p>
+                        <div class="task-proof">
+                            <strong>Como comprovar:</strong> Tire uma selfie mostrando você e sua ecobag no mercado
+                        </div>
+                        <div class="task-actions">
+                            <button class="btn btn-primary"><i class="fas fa-camera"></i> Comprovar Ação</button>
+                            <button class="btn btn-secondary"><i class="fas fa-info-circle"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- Task 2 -->
+                    <div class="task-card">
+                        <div class="liquid-effect effect-1"></div>
+                        <div class="liquid-effect effect-2"></div>
+                        <div class="task-header">
+                            <div class="task-icon"><i class="fas fa-tint"></i></div>
+                            <div class="task-tokens">+30 <span>DYN</span></div>
+                        </div>
+                        <h3 class="task-title">Garrafa Reutilizável</h3>
+                        <p class="task-description">Use garrafa de água reutilizável no lugar de descartáveis durante o dia.</p>
+                        <div class="task-proof">
+                            <strong>Como comprovar:</strong> Foto da sua garrafa reutilizável em uso
+                        </div>
+                        <div class="task-actions">
+                            <button class="btn btn-primary"><i class="fas fa-camera"></i> Comprovar Ação</button>
+                            <button class="btn btn-secondary"><i class="fas fa-info-circle"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- Task 3 -->
+                    <div class="task-card">
+                        <div class="liquid-effect effect-1"></div>
+                        <div class="liquid-effect effect-2"></div>
+                        <div class="task-header">
+                            <div class="task-icon"><i class="fas fa-bicycle"></i></div>
+                            <div class="task-tokens">+40 <span>DYN</span></div>
+                        </div>
+                        <h3 class="task-title">Transporte Sustentável</h3>
+                        <p class="task-description">Use transporte público, bicicleta ou caminhe em vez de carro particular.</p>
+                        <div class="task-proof">
+                            <strong>Como comprovar:</strong> Check-in em ponto de ônibus/metrô ou bicicletário
+                        </div>
+                        <div class="task-actions">
+                            <button class="btn btn-primary"><i class="fas fa-map-marker-alt"></i> Check-in</button>
+                            <button class="btn btn-secondary"><i class="fas fa-info-circle"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- Task 4 -->
+                    <div class="task-card">
+                        <div class="liquid-effect effect-1"></div>
+                        <div class="liquid-effect effect-2"></div>
+                        <div class="task-header">
+                            <div class="task-icon"><i class="fas fa-recycle"></i></div>
+                            <div class="task-tokens">+60 <span>DYN</span></div>
+                        </div>
+                        <h3 class="task-title">Separação do Lixo</h3>
+                        <p class="task-description">Separe o lixo reciclável do orgânico corretamente em sua residência.</p>
+                        <div class="task-proof">
+                            <strong>Como comprovar:</strong> Foto das lixeiras separadas (reciclável e orgânico)
+                        </div>
+                        <div class="task-actions">
+                            <button class="btn btn-primary"><i class="fas fa-camera"></i> Comprovar Ação</button>
+                            <button class="btn btn-secondary"><i class="fas fa-info-circle"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- Task 5 -->
+                    <div class="task-card">
+                        <div class="liquid-effect effect-1"></div>
+                        <div class="liquid-effect effect-2"></div>
+                        <div class="task-header">
+                            <div class="task-icon"><i class="fas fa-seedling"></i></div>
+                            <div class="task-tokens">+25 <span>DYN</span></div>
+                        </div>
+                        <h3 class="task-title">Aprendendo sobre Compostagem</h3>
+                        <p class="task-description">Estude sobre compostagem doméstica e seus benefícios ambientais.</p>
+                        <div class="task-proof">
+                            <strong>Como comprovar:</strong> Responda 3 perguntas sobre compostagem
+                        </div>
+                        <div class="task-actions">
+                            <button class="btn btn-primary"><i class="fas fa-question-circle"></i> Responder Quiz</button>
+                            <button class="btn btn-secondary"><i class="fas fa-info-circle"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="progress-section">
+                <h2><span class="section-icon"><i class="fas fa-chart-line"></i></span> Meu Progresso</h2>
+                
+                <div class="progress-card">
+                    <div class="progress-stats">
+                        <div class="stat">
+                            <div class="stat-value">12</div>
+                            <div class="stat-label">Missões Concluídas</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">3</div>
+                            <div class="stat-label">Dias de Sequência</div>
+                        </div>
+                    </div>
+                    
+                    <div class="level-info">
+                        <span>Nível 1</span>
+                        <span>Nível 2</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill"></div>
+                    </div>
+                    
+                    <h3 class="completed-tasks">Missões Recentes</h3>
+                    <ul class="completed-list">
+                        <li class="completed-item">
+                            <div>
+                                <div class="task-name">Reciclagem de Plástico</div>
+                                <div class="task-date">Hoje, 14:30</div>
+                            </div>
+                            <div class="task-reward">+45 DYN</div>
+                        </li>
+                        <li class="completed-item">
+                            <div>
+                                <div class="task-name">Banho Rápido</div>
+                                <div class="task-date">Ontem, 09:15</div>
+                            </div>
+                            <div class="task-reward">+30 DYN</div>
+                        </li>
+                        <li class="completed-item">
+                            <div>
+                                <div class="task-name">Luzes Desligadas</div>
+                                <div class="task-date">Ontem, 18:40</div>
+                            </div>
+                            <div class="task-reward">+20 DYN</div>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- LIQUID GLASS NAVIGATION -->
+    <nav class="bottom-nav">
+        <div class="nav-item active">
+            <i class="fas fa-home"></i>
+            <span>Início</span>
+        </div>
+        <div class="nav-item">
+            <i class="fas fa-tasks"></i>
+            <span>Missões</span>
+        </div>
+        <div class="nav-item">
+            <i class="fas fa-trophy"></i>
+            <span>Conquistas</span>
+        </div>
+        <div class="nav-item">
+            <i class="fas fa-user"></i>
+            <span>Perfil</span>
+        </div>
+    </nav>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Simular animação de tokens ao clicar em comprovar ação
+            const proveButtons = document.querySelectorAll('.btn-primary');
+            
+            proveButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const taskCard = this.closest('.task-card');
+                    const tokenElement = taskCard.querySelector('.task-tokens');
+                    
+                    // Criar elemento de animação
+                    const tokenAnimation = document.createElement('div');
+                    tokenAnimation.textContent = '+ DYN';
+                    tokenAnimation.style.position = 'absolute';
+                    tokenAnimation.style.color = '#34c759';
+                    tokenAnimation.style.fontWeight = 'bold';
+                    tokenAnimation.style.fontSize = '18px';
+                    tokenAnimation.style.pointerEvents = 'none';
+                    tokenAnimation.style.zIndex = '100';
+                    
+                    // Posicionar próximo ao botão
+                    const rect = this.getBoundingClientRect();
+                    tokenAnimation.style.left = rect.left + 'px';
+                    tokenAnimation.style.top = rect.top + 'px';
+                    
+                    document.body.appendChild(tokenAnimation);
+                    
+                    // Adicionar classe de animação
+                    tokenAnimation.classList.add('token-animation');
+                    
+                    // Atualizar contador de tokens após animação
+                    setTimeout(() => {
+                        const currentTokens = parseInt(document.querySelector('.token-amount').textContent);
+                        const taskTokens = parseInt(tokenElement.textContent);
+                        document.querySelector('.token-amount').textContent = currentTokens + taskTokens;
+                        
+                        // Remover elemento de animação
+                        tokenAnimation.remove();
+                        
+                        // Atualizar botão para mostrar sucesso
+                        this.innerHTML = '<i class="fas fa-check"></i> Comprovado';
+                        this.style.background = '#30d158';
+                        this.disabled = true;
+                    }, 800);
+                });
+            });
+            
+            // Simular carregamento progressivo dos cards
+            const taskCards = document.querySelectorAll('.task-card');
+            taskCards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.1}s`;
+            });
+            
+            // Navegação inferior com efeito Liquid Glass
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    navItems.forEach(nav => nav.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Efeito de ripple
+                    const ripple = document.createElement('span');
+                    const rect = this.getBoundingClientRect();
+                    const size = Math.max(rect.width, rect.height);
+                    const x = event.clientX - rect.left - size/2;
+                    const y = event.clientY - rect.top - size/2;
+                    
+                    ripple.style.width = ripple.style.height = size + 'px';
+                    ripple.style.left = x + 'px';
+                    ripple.style.top = y + 'px';
+                    ripple.style.position = 'absolute';
+                    ripple.style.borderRadius = '50%';
+                    ripple.style.background = 'rgba(255, 255, 255, 0.6)';
+                    ripple.style.transform = 'scale(0)';
+                    ripple.style.animation = 'ripple 0.6s linear';
+                    ripple.style.pointerEvents = 'none';
+                    
+                    this.appendChild(ripple);
+                    
+                    setTimeout(() => {
+                        ripple.remove();
+                    }, 600);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
