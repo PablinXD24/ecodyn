@@ -198,7 +198,15 @@
             gap: 25px;
         }
 
-        .tasks-section h2, .progress-section h2 {
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .tasks-section h2, .progress-section h2, .achievements-section h2, .profile-section h2 {
             font-size: 22px;
             margin-bottom: 20px;
             color: var(--text);
@@ -407,7 +415,7 @@
             transform: translateY(-2px);
         }
 
-        /* Progress Section - SIDEBAR SEM HOVER */
+        /* Progress Section */
         .progress-section {
             position: sticky;
             top: 20px;
@@ -568,7 +576,139 @@
             border: 1px solid rgba(46, 139, 87, 0.3);
         }
 
-        /* LIQUID GLASS NAVIGATION - SEM PRÉ-VISUALIZAÇÃO */
+        /* Achievements Section */
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .achievement-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(25px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 
+                0 8px 32px var(--glass-shadow),
+                inset 0 1px 0 rgba(255, 255, 255, 0.25);
+        }
+
+        .achievement-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--accent1);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+            margin: 0 auto 15px;
+            box-shadow: 0 4px 20px rgba(46, 139, 87, 0.6);
+        }
+
+        .achievement-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: white;
+        }
+
+        .achievement-desc {
+            font-size: 12px;
+            color: var(--text-light);
+            margin-bottom: 12px;
+        }
+
+        .achievement-progress {
+            height: 6px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+
+        .achievement-fill {
+            height: 100%;
+            background: var(--accent1);
+            border-radius: 3px;
+            transition: width 0.5s ease;
+        }
+
+        /* Profile Section */
+        .profile-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(25px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 
+                0 8px 32px var(--glass-shadow),
+                inset 0 1px 0 rgba(255, 255, 255, 0.25);
+            margin-bottom: 25px;
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            background: var(--accent1);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: white;
+            box-shadow: 0 4px 20px rgba(46, 139, 87, 0.6);
+        }
+
+        .profile-info h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: white;
+        }
+
+        .profile-info p {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        .profile-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .profile-stat {
+            text-align: center;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+        }
+
+        .profile-stat-value {
+            font-size: 18px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 5px;
+        }
+
+        .profile-stat-label {
+            font-size: 11px;
+            color: var(--text-light);
+        }
+
+        /* LIQUID GLASS NAVIGATION */
         .bottom-nav {
             position: fixed;
             bottom: 20px;
@@ -619,7 +759,6 @@
             z-index: 2;
         }
 
-        /* Efeito líquido de fundo que se move */
         .liquid-highlight {
             position: absolute;
             top: 6px;
@@ -674,7 +813,6 @@
             text-overflow: ellipsis;
         }
 
-        /* Efeito de onda ao clicar */
         .liquid-wave {
             position: absolute;
             border-radius: 50%;
@@ -683,6 +821,57 @@
             animation: liquidWave 0.6s ease-out;
             pointer-events: none;
             z-index: 0;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            backdrop-filter: blur(25px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 25px;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: white;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: var(--text-light);
+            font-size: 20px;
+            cursor: pointer;
         }
 
         /* Animations */
@@ -764,7 +953,7 @@
                 grid-template-columns: 1fr;
             }
             
-            .tasks-grid {
+            .tasks-grid, .achievements-grid {
                 grid-template-columns: 1fr;
             }
             
@@ -786,7 +975,7 @@
                 justify-content: center;
             }
             
-            .progress-stats {
+            .progress-stats, .profile-stats {
                 grid-template-columns: 1fr;
             }
             
@@ -845,107 +1034,79 @@
         </header>
 
         <main class="dashboard">
-            <section class="tasks-section">
-                <h2><span class="section-icon"><i class="fas fa-tasks"></i></span> Missões Diárias</h2>
-                <div class="tasks-grid">
-                    <!-- Task 1 -->
-                    <div class="task-card">
-                        <div class="task-header">
-                            <div class="task-icon"><i class="fas fa-shopping-bag"></i></div>
-                            <div class="task-tokens">+50 <span>DYN</span></div>
-                        </div>
-                        <h3 class="task-title">Ecobag no Supermercado</h3>
-                        <p class="task-description">Use uma ecobag ou sacola retornável nas compras para reduzir o uso de plástico.</p>
-                        <div class="task-proof">
-                            <strong>Como comprovar:</strong> Tire uma selfie mostrando você e sua ecobag no mercado
-                        </div>
-                        <div class="task-actions">
-                            <button class="btn btn-primary"><i class="fas fa-camera"></i> Comprovar Ação</button>
-                            <button class="btn btn-secondary"><i class="fas fa-info-circle"></i></button>
-                        </div>
-                    </div>
-
-                    <!-- Task 2 -->
-                    <div class="task-card">
-                        <div class="task-header">
-                            <div class="task-icon"><i class="fas fa-tint"></i></div>
-                            <div class="task-tokens">+30 <span>DYN</span></div>
-                        </div>
-                        <h3 class="task-title">Garrafa Reutilizável</h3>
-                        <p class="task-description">Use garrafa de água reutilizável no lugar de descartáveis durante o dia.</p>
-                        <div class="task-proof">
-                            <strong>Como comprovar:</strong> Foto da sua garrafa reutilizável em uso
-                        </div>
-                        <div class="task-actions">
-                            <button class="btn btn-primary"><i class="fas fa-camera"></i> Comprovar Ação</button>
-                            <button class="btn btn-secondary"><i class="fas fa-info-circle"></i></button>
-                        </div>
-                    </div>
-
-                    <!-- Task 3 -->
-                    <div class="task-card">
-                        <div class="task-header">
-                            <div class="task-icon"><i class="fas fa-bicycle"></i></div>
-                            <div class="task-tokens">+40 <span>DYN</span></div>
-                        </div>
-                        <h3 class="task-title">Transporte Sustentável</h3>
-                        <p class="task-description">Use transporte público, bicicleta ou caminhe em vez de carro particular.</p>
-                        <div class="task-proof">
-                            <strong>Como comprovar:</strong> Check-in em ponto de ônibus/metrô ou bicicletário
-                        </div>
-                        <div class="task-actions">
-                            <button class="btn btn-primary"><i class="fas fa-map-marker-alt"></i> Check-in</button>
-                            <button class="btn btn-secondary"><i class="fas fa-info-circle"></i></button>
-                        </div>
-                    </div>
-
-                    <!-- Task 4 -->
-                    <div class="task-card">
-                        <div class="task-header">
-                            <div class="task-icon"><i class="fas fa-recycle"></i></div>
-                            <div class="task-tokens">+60 <span>DYN</span></div>
-                        </div>
-                        <h3 class="task-title">Separação do Lixo</h3>
-                        <p class="task-description">Separe o lixo reciclável do orgânico corretamente em sua residência.</p>
-                        <div class="task-proof">
-                            <strong>Como comprovar:</strong> Foto das lixeiras separadas (reciclável e orgânico)
-                        </div>
-                        <div class="task-actions">
-                            <button class="btn btn-primary"><i class="fas fa-camera"></i> Comprovar Ação</button>
-                            <button class="btn btn-secondary"><i class="fas fa-info-circle"></i></button>
-                        </div>
-                    </div>
-
-                    <!-- Task 5 -->
-                    <div class="task-card">
-                        <div class="task-header">
-                            <div class="task-icon"><i class="fas fa-seedling"></i></div>
-                            <div class="task-tokens">+25 <span>DYN</span></div>
-                        </div>
-                        <h3 class="task-title">Aprendendo sobre Compostagem</h3>
-                        <p class="task-description">Estude sobre compostagem doméstica e seus benefícios ambientais.</p>
-                        <div class="task-proof">
-                            <strong>Como comprovar:</strong> Responda 3 perguntas sobre compostagem
-                        </div>
-                        <div class="task-actions">
-                            <button class="btn btn-primary"><i class="fas fa-question-circle"></i> Responder Quiz</button>
-                            <button class="btn btn-secondary"><i class="fas fa-info-circle"></i></button>
-                        </div>
+            <!-- Início Section -->
+            <section class="section active" id="home-section">
+                <div class="tasks-section">
+                    <h2><span class="section-icon"><i class="fas fa-tasks"></i></span> Missões Diárias</h2>
+                    <div class="tasks-grid" id="tasks-container">
+                        <!-- Tasks serão carregadas dinamicamente -->
                     </div>
                 </div>
             </section>
 
+            <!-- Missões Section -->
+            <section class="section" id="tasks-section">
+                <h2><span class="section-icon"><i class="fas fa-tasks"></i></span> Todas as Missões</h2>
+                <div class="tasks-grid" id="all-tasks-container">
+                    <!-- Todas as tasks serão carregadas aqui -->
+                </div>
+            </section>
+
+            <!-- Conquistas Section -->
+            <section class="section" id="achievements-section">
+                <h2><span class="section-icon"><i class="fas fa-trophy"></i></span> Minhas Conquistas</h2>
+                <div class="achievements-grid" id="achievements-container">
+                    <!-- Conquistas serão carregadas dinamicamente -->
+                </div>
+            </section>
+
+            <!-- Perfil Section -->
+            <section class="section" id="profile-section">
+                <h2><span class="section-icon"><i class="fas fa-user"></i></span> Meu Perfil</h2>
+                <div class="profile-card">
+                    <div class="profile-header">
+                        <div class="profile-avatar">U</div>
+                        <div class="profile-info">
+                            <h3>Usuário EcoDyn</h3>
+                            <p>Membro desde Janeiro 2024</p>
+                        </div>
+                    </div>
+                    <div class="profile-stats">
+                        <div class="profile-stat">
+                            <div class="profile-stat-value" id="total-tokens">350</div>
+                            <div class="profile-stat-label">Tokens DYN</div>
+                        </div>
+                        <div class="profile-stat">
+                            <div class="profile-stat-value" id="total-missions">12</div>
+                            <div class="profile-stat-label">Missões</div>
+                        </div>
+                        <div class="profile-stat">
+                            <div class="profile-stat-value" id="current-streak">3</div>
+                            <div class="profile-stat-label">Dias Sequência</div>
+                        </div>
+                    </div>
+                    <div class="level-info">
+                        <span>Nível 1</span>
+                        <span>Nível 2</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 45%"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sidebar de Progresso -->
             <section class="progress-section">
                 <h2><span class="section-icon"><i class="fas fa-chart-line"></i></span> Meu Progresso</h2>
                 
                 <div class="progress-card">
                     <div class="progress-stats">
                         <div class="stat">
-                            <div class="stat-value">12</div>
+                            <div class="stat-value" id="completed-count">12</div>
                             <div class="stat-label">Missões Concluídas</div>
                         </div>
                         <div class="stat">
-                            <div class="stat-value">3</div>
+                            <div class="stat-value" id="streak-count">3</div>
                             <div class="stat-label">Dias de Sequência</div>
                         </div>
                     </div>
@@ -955,55 +1116,48 @@
                         <span>Nível 2</span>
                     </div>
                     <div class="progress-bar">
-                        <div class="progress-fill"></div>
+                        <div class="progress-fill" id="level-progress" style="width: 65%"></div>
                     </div>
                     
                     <h3 class="completed-tasks"><i class="fas fa-history"></i> Missões Recentes</h3>
-                    <ul class="completed-list">
-                        <li class="completed-item">
-                            <div class="task-info">
-                                <div class="task-name">Reciclagem de Plástico</div>
-                                <div class="task-date">Hoje, 14:30</div>
-                            </div>
-                            <div class="task-reward">+45 DYN</div>
-                        </li>
-                        <li class="completed-item">
-                            <div class="task-info">
-                                <div class="task-name">Banho Rápido</div>
-                                <div class="task-date">Ontem, 09:15</div>
-                            </div>
-                            <div class="task-reward">+30 DYN</div>
-                        </li>
-                        <li class="completed-item">
-                            <div class="task-info">
-                                <div class="task-name">Luzes Desligadas</div>
-                                <div class="task-date">Ontem, 18:40</div>
-                            </div>
-                            <div class="task-reward">+20 DYN</div>
-                        </li>
+                    <ul class="completed-list" id="recent-tasks">
+                        <!-- Missões recentes serão carregadas dinamicamente -->
                     </ul>
                 </div>
             </section>
         </main>
     </div>
 
-    <!-- LIQUID GLASS NAVIGATION - SEM PRÉ-VISUALIZAÇÃO -->
+    <!-- Modal de Comprovação -->
+    <div class="modal" id="proof-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Comprovar Missão</h3>
+                <button class="modal-close" id="close-modal">&times;</button>
+            </div>
+            <div id="modal-body">
+                <!-- Conteúdo do modal será carregado dinamicamente -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Navegação -->
     <nav class="bottom-nav">
         <div class="nav-container">
             <div class="liquid-highlight" style="width: 70px; left: 6px;"></div>
-            <div class="nav-item active" data-index="0">
+            <div class="nav-item active" data-section="home-section">
                 <i class="fas fa-home"></i>
                 <span>Início</span>
             </div>
-            <div class="nav-item" data-index="1">
+            <div class="nav-item" data-section="tasks-section">
                 <i class="fas fa-tasks"></i>
                 <span>Missões</span>
             </div>
-            <div class="nav-item" data-index="2">
+            <div class="nav-item" data-section="achievements-section">
                 <i class="fas fa-trophy"></i>
                 <span>Conquistas</span>
             </div>
-            <div class="nav-item" data-index="3">
+            <div class="nav-item" data-section="profile-section">
                 <i class="fas fa-user"></i>
                 <span>Perfil</span>
             </div>
@@ -1011,142 +1165,540 @@
     </nav>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Elementos da navegação
-            const navItems = document.querySelectorAll('.nav-item');
-            const liquidHighlight = document.querySelector('.liquid-highlight');
-            
-            // Calcular larguras das abas
-            function calculateTabWidths() {
-                const tabWidths = [];
-                navItems.forEach(item => {
-                    tabWidths.push(item.offsetWidth);
+        // Dados da aplicação
+        const appState = {
+            user: {
+                tokens: 350,
+                completedMissions: 12,
+                currentStreak: 3,
+                level: 1,
+                experience: 45
+            },
+            missions: [
+                {
+                    id: 1,
+                    title: "Ecobag no Supermercado",
+                    description: "Use uma ecobag ou sacola retornável nas compras para reduzir o uso de plástico.",
+                    tokens: 50,
+                    proofType: "photo",
+                    proofInstruction: "Tire uma selfie mostrando você e sua ecobag no mercado",
+                    category: "consumo",
+                    difficulty: "easy",
+                    icon: "🛍️",
+                    completed: false
+                },
+                {
+                    id: 2,
+                    title: "Garrafa Reutilizável",
+                    description: "Use garrafa de água reutilizável no lugar de descartáveis durante o dia.",
+                    tokens: 30,
+                    proofType: "photo", 
+                    proofInstruction: "Foto da sua garrafa reutilizável em uso",
+                    category: "consumo",
+                    difficulty: "easy",
+                    icon: "💧",
+                    completed: false
+                },
+                {
+                    id: 3,
+                    title: "Transporte Sustentável",
+                    description: "Use transporte público, bicicleta ou caminhe em vez de carro particular.",
+                    tokens: 40,
+                    proofType: "gps",
+                    proofInstruction: "Check-in em ponto de ônibus/metrô ou bicicletário",
+                    category: "mobilidade",
+                    difficulty: "medium",
+                    icon: "🚲",
+                    completed: false
+                },
+                {
+                    id: 4,
+                    title: "Separação do Lixo",
+                    description: "Separe o lixo reciclável do orgânico corretamente em sua residência.",
+                    tokens: 60,
+                    proofType: "photo",
+                    proofInstruction: "Foto das lixeiras separadas (reciclável e orgânico)",
+                    category: "reciclagem", 
+                    difficulty: "medium",
+                    icon: "♻️",
+                    completed: false
+                },
+                {
+                    id: 5,
+                    title: "Aprendendo sobre Compostagem",
+                    description: "Estude sobre compostagem doméstica e seus benefícios ambientais.",
+                    tokens: 25,
+                    proofType: "quiz",
+                    proofInstruction: "Responda 3 perguntas sobre compostagem",
+                    category: "educacao",
+                    difficulty: "easy",
+                    icon: "🌱",
+                    completed: false
+                }
+            ],
+            achievements: [
+                {
+                    id: 1,
+                    title: "Iniciante Verde",
+                    description: "Complete sua primeira missão sustentável",
+                    icon: "🌿",
+                    progress: 100,
+                    total: 1,
+                    unlocked: true
+                },
+                {
+                    id: 2,
+                    title: "Economista de Plástico",
+                    description: "Complete 5 missões relacionadas a redução de plástico",
+                    icon: "🚫",
+                    progress: 2,
+                    total: 5,
+                    unlocked: false
+                },
+                {
+                    id: 3,
+                    title: "Mestre da Reciclagem",
+                    description: "Recicle 10 itens diferentes",
+                    icon: "♻️",
+                    progress: 4,
+                    total: 10,
+                    unlocked: false
+                },
+                {
+                    id: 4,
+                    title: "Explorador Sustentável",
+                    description: "Use transporte sustentável por 7 dias seguidos",
+                    icon: "🚲",
+                    progress: 3,
+                    total: 7,
+                    unlocked: false
+                }
+            ],
+            recentCompleted: [
+                {
+                    name: "Reciclagem de Plástico",
+                    date: "Hoje, 14:30",
+                    reward: 45
+                },
+                {
+                    name: "Banho Rápido", 
+                    date: "Ontem, 09:15",
+                    reward: 30
+                },
+                {
+                    name: "Luzes Desligadas",
+                    date: "Ontem, 18:40",
+                    reward: 20
+                }
+            ]
+        };
+
+        // Elementos DOM
+        const elements = {
+            tokenAmount: document.querySelector('.token-amount'),
+            completedCount: document.querySelector('#completed-count'),
+            streakCount: document.querySelector('#streak-count'),
+            tasksContainer: document.querySelector('#tasks-container'),
+            allTasksContainer: document.querySelector('#all-tasks-container'),
+            achievementsContainer: document.querySelector('#achievements-container'),
+            recentTasks: document.querySelector('#recent-tasks'),
+            navItems: document.querySelectorAll('.nav-item'),
+            liquidHighlight: document.querySelector('.liquid-highlight'),
+            sections: document.querySelectorAll('.section'),
+            proofModal: document.querySelector('#proof-modal'),
+            modalBody: document.querySelector('#modal-body'),
+            closeModal: document.querySelector('#close-modal')
+        };
+
+        // Inicialização da aplicação
+        function initApp() {
+            updateUI();
+            setupEventListeners();
+            loadTasks();
+            loadAchievements();
+            loadRecentTasks();
+        }
+
+        // Atualizar interface
+        function updateUI() {
+            elements.tokenAmount.textContent = appState.user.tokens;
+            elements.completedCount.textContent = appState.user.completedMissions;
+            elements.streakCount.textContent = appState.user.currentStreak;
+        }
+
+        // Configurar event listeners
+        function setupEventListeners() {
+            // Navegação
+            elements.navItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const sectionId = this.getAttribute('data-section');
+                    switchSection(sectionId);
+                    updateNavigation(this);
                 });
-                return tabWidths;
-            }
-            
-            // Calcular posições das abas
-            function calculateTabPositions() {
-                const positions = [];
-                let currentPosition = 0;
-                
-                navItems.forEach(item => {
-                    positions.push(currentPosition);
-                    currentPosition += item.offsetWidth;
+            });
+
+            // Modal
+            elements.closeModal.addEventListener('click', closeProofModal);
+            elements.proofModal.addEventListener('click', function(e) {
+                if (e.target === elements.proofModal) {
+                    closeProofModal();
+                }
+            });
+        }
+
+        // Carregar tasks
+        function loadTasks() {
+            elements.tasksContainer.innerHTML = '';
+            elements.allTasksContainer.innerHTML = '';
+
+            appState.missions.forEach(mission => {
+                const taskHTML = createTaskHTML(mission);
+                elements.tasksContainer.innerHTML += taskHTML;
+                elements.allTasksContainer.innerHTML += taskHTML;
+            });
+
+            // Adicionar event listeners aos botões
+            document.querySelectorAll('.btn-primary').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const taskId = this.closest('.task-card').getAttribute('data-id');
+                    openProofModal(parseInt(taskId));
                 });
-                
-                return positions;
-            }
+            });
+        }
+
+        // Carregar conquistas
+        function loadAchievements() {
+            elements.achievementsContainer.innerHTML = '';
             
+            appState.achievements.forEach(achievement => {
+                const progressPercent = (achievement.progress / achievement.total) * 100;
+                const achievementHTML = `
+                    <div class="achievement-card ${achievement.unlocked ? 'unlocked' : ''}">
+                        <div class="achievement-icon">
+                            <i class="fas fa-${achievement.unlocked ? 'check' : 'lock'}"></i>
+                        </div>
+                        <h3 class="achievement-title">${achievement.title}</h3>
+                        <p class="achievement-desc">${achievement.description}</p>
+                        <div class="achievement-progress">
+                            <div class="achievement-fill" style="width: ${progressPercent}%"></div>
+                        </div>
+                        <div class="task-tokens">
+                            ${achievement.progress}/${achievement.total}
+                        </div>
+                    </div>
+                `;
+                elements.achievementsContainer.innerHTML += achievementHTML;
+            });
+        }
+
+        // Carregar tasks recentes
+        function loadRecentTasks() {
+            elements.recentTasks.innerHTML = '';
+            
+            appState.recentCompleted.forEach(task => {
+                const taskHTML = `
+                    <li class="completed-item">
+                        <div class="task-info">
+                            <div class="task-name">${task.name}</div>
+                            <div class="task-date">${task.date}</div>
+                        </div>
+                        <div class="task-reward">+${task.reward} DYN</div>
+                    </li>
+                `;
+                elements.recentTasks.innerHTML += taskHTML;
+            });
+        }
+
+        // Criar HTML da task
+        function createTaskHTML(mission) {
+            return `
+                <div class="task-card" data-id="${mission.id}">
+                    <div class="task-header">
+                        <div class="task-icon">${mission.icon}</div>
+                        <div class="task-tokens">+${mission.tokens} <span>DYN</span></div>
+                    </div>
+                    <h3 class="task-title">${mission.title}</h3>
+                    <p class="task-description">${mission.description}</p>
+                    <div class="task-proof">
+                        <strong>Como comprovar:</strong> ${mission.proofInstruction}
+                    </div>
+                    <div class="task-actions">
+                        <button class="btn btn-primary" ${mission.completed ? 'disabled' : ''}>
+                            <i class="fas fa-${getProofIcon(mission.proofType)}"></i> 
+                            ${mission.completed ? 'Comprovado' : getProofButtonText(mission.proofType)}
+                        </button>
+                        <button class="btn btn-secondary">
+                            <i class="fas fa-info-circle"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Obter ícone do tipo de prova
+        function getProofIcon(proofType) {
+            const icons = {
+                'photo': 'camera',
+                'gps': 'map-marker-alt',
+                'quiz': 'question-circle'
+            };
+            return icons[proofType] || 'check';
+        }
+
+        // Obter texto do botão de prova
+        function getProofButtonText(proofType) {
+            const texts = {
+                'photo': 'Comprovar Ação',
+                'gps': 'Check-in',
+                'quiz': 'Responder Quiz'
+            };
+            return texts[proofType] || 'Comprovar';
+        }
+
+        // Trocar seção
+        function switchSection(sectionId) {
+            elements.sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+        }
+
+        // Atualizar navegação
+        function updateNavigation(activeItem) {
+            elements.navItems.forEach(item => {
+                item.classList.remove('active');
+            });
+            activeItem.classList.add('active');
+
             // Atualizar efeito líquido
-            function updateLiquidEffect(activeIndex) {
-                const tabWidths = calculateTabWidths();
-                const tabPositions = calculateTabPositions();
-                
-                const width = tabWidths[activeIndex];
-                const position = tabPositions[activeIndex];
-                
-                liquidHighlight.style.width = `${width}px`;
-                liquidHighlight.style.left = `${position}px`;
+            const index = Array.from(elements.navItems).indexOf(activeItem);
+            updateLiquidEffect(index);
+        }
+
+        // Atualizar efeito líquido
+        function updateLiquidEffect(activeIndex) {
+            const tabWidths = calculateTabWidths();
+            const tabPositions = calculateTabPositions();
+            
+            const width = tabWidths[activeIndex];
+            const position = tabPositions[activeIndex];
+            
+            elements.liquidHighlight.style.width = `${width}px`;
+            elements.liquidHighlight.style.left = `${position}px`;
+        }
+
+        // Calcular larguras das abas
+        function calculateTabWidths() {
+            const tabWidths = [];
+            elements.navItems.forEach(item => {
+                tabWidths.push(item.offsetWidth);
+            });
+            return tabWidths;
+        }
+
+        // Calcular posições das abas
+        function calculateTabPositions() {
+            const positions = [];
+            let currentPosition = 0;
+            
+            elements.navItems.forEach(item => {
+                positions.push(currentPosition);
+                currentPosition += item.offsetWidth;
+            });
+            
+            return positions;
+        }
+
+        // Abrir modal de comprovação
+        function openProofModal(taskId) {
+            const mission = appState.missions.find(m => m.id === taskId);
+            if (!mission) return;
+
+            let modalContent = '';
+            
+            switch(mission.proofType) {
+                case 'photo':
+                    modalContent = `
+                        <h4>${mission.title}</h4>
+                        <p>${mission.proofInstruction}</p>
+                        <div style="margin: 20px 0;">
+                            <input type="file" accept="image/*" capture="camera" id="photo-input" style="display: none;">
+                            <button class="btn btn-primary" onclick="document.getElementById('photo-input').click()">
+                                <i class="fas fa-camera"></i> Tirar Foto
+                            </button>
+                        </div>
+                        <button class="btn btn-primary" onclick="completeMission(${taskId})" style="width: 100%">
+                            <i class="fas fa-check"></i> Enviar Comprovação
+                        </button>
+                    `;
+                    break;
+                    
+                case 'gps':
+                    modalContent = `
+                        <h4>${mission.title}</h4>
+                        <p>${mission.proofInstruction}</p>
+                        <div style="margin: 20px 0;">
+                            <button class="btn btn-primary" onclick="getLocation(${taskId})">
+                                <i class="fas fa-map-marker-alt"></i> Obter Localização
+                            </button>
+                            <div id="location-result" style="margin-top: 10px; display: none;">
+                                <p>Localização obtida com sucesso!</p>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" onclick="completeMission(${taskId})" style="width: 100%" id="confirm-location" disabled>
+                            <i class="fas fa-check"></i> Confirmar Localização
+                        </button>
+                    `;
+                    break;
+                    
+                case 'quiz':
+                    modalContent = `
+                        <h4>${mission.title}</h4>
+                        <p>Responda às perguntas sobre compostagem:</p>
+                        <div style="margin: 20px 0;">
+                            <div class="quiz-question">
+                                <p><strong>1. O que é compostagem?</strong></p>
+                                <div>
+                                    <input type="radio" name="q1" value="a"> a) Processo de reciclagem de plástico<br>
+                                    <input type="radio" name="q1" value="b"> b) Processo de decomposição de matéria orgânica<br>
+                                    <input type="radio" name="q1" value="c"> c) Método de purificação de água
+                                </div>
+                            </div>
+                            <div class="quiz-question" style="margin-top: 15px;">
+                                <p><strong>2. Quais materiais podem ser compostados?</strong></p>
+                                <div>
+                                    <input type="radio" name="q2" value="a"> a) Apenas plástico<br>
+                                    <input type="radio" name="q2" value="b"> b) Restos de comida e podas de jardim<br>
+                                    <input type="radio" name="q2" value="c"> c) Metais e vidro
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" onclick="checkQuiz(${taskId})" style="width: 100%">
+                            <i class="fas fa-check"></i> Verificar Respostas
+                        </button>
+                    `;
+                    break;
             }
-            
-            // Inicializar com a primeira aba ativa
-            updateLiquidEffect(0);
-            
-            // Navegação com efeito líquido
-            navItems.forEach((item, index) => {
-                item.addEventListener('click', function(e) {
-                    // Remover classe active de todos os itens
-                    navItems.forEach(nav => nav.classList.remove('active'));
-                    
-                    // Adicionar classe active ao item clicado
-                    this.classList.add('active');
-                    
-                    // Atualizar efeito líquido
-                    updateLiquidEffect(index);
-                    
-                    // Efeito de onda líquida
-                    const wave = document.createElement('div');
-                    wave.classList.add('liquid-wave');
-                    
-                    const rect = this.getBoundingClientRect();
-                    const navRect = document.querySelector('.bottom-nav').getBoundingClientRect();
-                    
-                    const x = e.clientX - navRect.left;
-                    const y = e.clientY - navRect.top;
-                    
-                    wave.style.left = `${x}px`;
-                    wave.style.top = `${y}px`;
-                    
-                    document.querySelector('.bottom-nav').appendChild(wave);
-                    
-                    setTimeout(() => {
-                        wave.remove();
-                    }, 600);
-                });
+
+            elements.modalBody.innerHTML = modalContent;
+            elements.proofModal.classList.add('active');
+        }
+
+        // Fechar modal de comprovação
+        function closeProofModal() {
+            elements.proofModal.classList.remove('active');
+        }
+
+        // Completar missão
+        function completeMission(taskId) {
+            const mission = appState.missions.find(m => m.id === taskId);
+            if (!mission || mission.completed) return;
+
+            // Atualizar estado
+            mission.completed = true;
+            appState.user.tokens += mission.tokens;
+            appState.user.completedMissions += 1;
+            appState.user.currentStreak += 1;
+
+            // Adicionar à lista de recentes
+            appState.recentCompleted.unshift({
+                name: mission.title,
+                date: 'Agora',
+                reward: mission.tokens
             });
+
+            // Manter apenas 3 itens na lista
+            if (appState.recentCompleted.length > 3) {
+                appState.recentCompleted.pop();
+            }
+
+            // Atualizar UI
+            updateUI();
+            loadTasks();
+            loadRecentTasks();
+            closeProofModal();
+
+            // Animação de tokens
+            createTokenAnimation(mission.tokens);
+        }
+
+        // Obter localização
+        function getLocation(taskId) {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    function(position) {
+                        document.getElementById('location-result').style.display = 'block';
+                        document.getElementById('confirm-location').disabled = false;
+                    },
+                    function(error) {
+                        alert('Não foi possível obter a localização. Verifique as permissões do navegador.');
+                    }
+                );
+            } else {
+                alert('Geolocalização não é suportada pelo seu navegador.');
+            }
+        }
+
+        // Verificar quiz
+        function checkQuiz(taskId) {
+            const q1 = document.querySelector('input[name="q1"]:checked');
+            const q2 = document.querySelector('input[name="q2"]:checked');
+
+            if (!q1 || !q2) {
+                alert('Por favor, responda todas as perguntas.');
+                return;
+            }
+
+            if (q1.value === 'b' && q2.value === 'b') {
+                completeMission(taskId);
+            } else {
+                alert('Algumas respostas estão incorretas. Tente novamente!');
+            }
+        }
+
+        // Criar animação de tokens
+        function createTokenAnimation(amount) {
+            const tokenAnimation = document.createElement('div');
+            tokenAnimation.textContent = `+${amount} DYN`;
+            tokenAnimation.style.position = 'fixed';
+            tokenAnimation.style.color = '#2e8b57';
+            tokenAnimation.style.fontWeight = 'bold';
+            tokenAnimation.style.fontSize = '18px';
+            tokenAnimation.style.pointerEvents = 'none';
+            tokenAnimation.style.zIndex = '1000';
+            tokenAnimation.style.textShadow = '0 0 12px rgba(46, 139, 87, 0.9)';
+            tokenAnimation.style.left = '50%';
+            tokenAnimation.style.top = '50%';
+            tokenAnimation.style.transform = 'translate(-50%, -50%)';
             
-            // Simular animação de tokens ao clicar em comprovar ação
-            const proveButtons = document.querySelectorAll('.btn-primary');
+            document.body.appendChild(tokenAnimation);
             
-            proveButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const taskCard = this.closest('.task-card');
-                    const tokenElement = taskCard.querySelector('.task-tokens');
-                    
-                    // Criar elemento de animação
-                    const tokenAnimation = document.createElement('div');
-                    tokenAnimation.textContent = '+ DYN';
-                    tokenAnimation.style.position = 'absolute';
-                    tokenAnimation.style.color = '#2e8b57';
-                    tokenAnimation.style.fontWeight = 'bold';
-                    tokenAnimation.style.fontSize = '18px';
-                    tokenAnimation.style.pointerEvents = 'none';
-                    tokenAnimation.style.zIndex = '100';
-                    tokenAnimation.style.textShadow = '0 0 12px rgba(46, 139, 87, 0.9)';
-                    
-                    // Posicionar próximo ao botão
-                    const rect = this.getBoundingClientRect();
-                    tokenAnimation.style.left = rect.left + 'px';
-                    tokenAnimation.style.top = rect.top + 'px';
-                    
-                    document.body.appendChild(tokenAnimation);
-                    
-                    // Adicionar classe de animação
-                    tokenAnimation.classList.add('token-animation');
-                    
-                    // Atualizar contador de tokens após animação
-                    setTimeout(() => {
-                        const currentTokens = parseInt(document.querySelector('.token-amount').textContent);
-                        const taskTokens = parseInt(tokenElement.textContent);
-                        document.querySelector('.token-amount').textContent = currentTokens + taskTokens;
-                        
-                        // Remover elemento de animação
-                        tokenAnimation.remove();
-                        
-                        // Atualizar botão para mostrar sucesso
-                        this.innerHTML = '<i class="fas fa-check"></i> Comprovado';
-                        this.style.background = '#30d158';
-                        this.disabled = true;
-                    }, 800);
-                });
-            });
+            tokenAnimation.classList.add('token-animation');
             
-            // Simular carregamento progressivo dos cards
+            setTimeout(() => {
+                tokenAnimation.remove();
+            }, 800);
+        }
+
+        // Inicializar app quando DOM estiver pronto
+        document.addEventListener('DOMContentLoaded', initApp);
+
+        // Ajustar navegação ao redimensionar
+        window.addEventListener('resize', function() {
+            const activeItem = document.querySelector('.nav-item.active');
+            if (activeItem) {
+                const activeIndex = Array.from(elements.navItems).indexOf(activeItem);
+                updateLiquidEffect(activeIndex);
+            }
+        });
+
+        // Simular carregamento progressivo dos cards
+        setTimeout(() => {
             const taskCards = document.querySelectorAll('.task-card');
             taskCards.forEach((card, index) => {
                 card.style.animationDelay = `${index * 0.1}s`;
             });
-
-            // Ajustar navegação ao redimensionar a janela
-            window.addEventListener('resize', function() {
-                const activeItem = document.querySelector('.nav-item.active');
-                if (activeItem) {
-                    const activeIndex = parseInt(activeItem.getAttribute('data-index'));
-                    updateLiquidEffect(activeIndex);
-                }
-            });
-        });
+        }, 100);
     </script>
 </body>
 </html>
